@@ -1,0 +1,69 @@
+{
+  "name": "react-table-of-content",
+  "private": false,
+  "author": {
+    "name": "Precious OSSAI",
+    "email": "theossaiprecious@gmail.com",
+    "url": "https://ossaiprecious.com"
+  },
+  "keywords": [
+    "table of content",
+    "react",
+    "react hooks",
+    "toc",
+    "heading links",
+    "article",
+    "navigation",
+    "autogenerate"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeCrio/react-table-of-content.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PeCrio/react-table-of-content/issues"
+  },
+  "homepage": "https://github.com/PeCrio/react-table-of-content#readme",
+  "license": "MIT",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "files": [
+    "/dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "prepare": "npm run build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.3",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@types/uuid": "^9.0.2",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.20",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0",
+    "vite-plugin-dts": "^1.7.1"
+  }
+}
