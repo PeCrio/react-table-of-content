@@ -1,5 +1,31 @@
-import React from "react";
+import React, { createElement } from "react";
 import { TableOfContent } from "./TableOfContent";
+
+const Article = () => {
+  const headingTags = ["h1", "h2", "h3", "h4", "h5", "h6"];
+  const dummyText =
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum vero accusamus alias cumque numquam atque eius ullam nobis at! Necessitatibus, corporis earum? Quidem, corporis blanditiis sapiente veritatis saepe debitis expedita!.";
+  return (
+    <article>
+      <div className="container max-w-screen-xl">
+        {headingTags.map((tag, index) => {
+          const headingElement = createElement(
+            tag,
+            { key: index, id: `${tag}-heading` },
+            `${tag.toUpperCase()} heading`
+          );
+          return (
+            <section key={index}>
+              {headingElement}
+              {/* Returns something like this: <h1 id={`${tag}-heading`}>{tag.toUpperCase()} heading</h1> */}
+              <p>{dummyText}</p>
+            </section>
+          );
+        })}
+      </div>
+    </article>
+  );
+};
 
 export const Example: React.FC = () => {
   return (
@@ -12,64 +38,9 @@ export const Example: React.FC = () => {
           <TableOfContent />
         </div>
       </div>
-      <article className="flex-1">
-        <div className="container max-w-screen-xl">
-          <section>
-            <h1 id="first-heading">H1 heading</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-          <section>
-            <h2 id="second-heading">H2 heading</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-          <section>
-            <h3 id="third-heading">H3 heading</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-          <section>
-            <h4 id="fourth-heading">H4 heading</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-          <section>
-            <h5 id="fifth-heading">H5 heading</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-          <section>
-            <h6 id="sixth-heading">H6 heading</h6>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-        </div>
-      </article>
+      <div className="flex-1">
+        <Article />
+      </div>
     </div>
   );
 };

@@ -3,11 +3,7 @@
 @tailwind utilities;
 
 section {
-  @apply min-h-[300px] flex flex-col items-stretch justify-center p-20 m-20 rounded-xl bg-gray-200;
-
-  &:first-child {
-    @apply mt-0;
-  }
+  @apply min-h-[300px] flex flex-col items-stretch justify-center p-20 m-20 rounded-xl bg-gray-200 first-of-type:mt-0;
 }
 
 :root {
@@ -28,4 +24,12 @@ h6 {
 
 p {
   @apply text-base text-gray-600;
+}
+
+.active {
+  @apply text-gray-800 font-semibold;
+}
+
+.inactive {
+  @apply text-gray-500;
 }
