@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/PeCrio/react-table-of-content#readme",
   "license": "MIT",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",

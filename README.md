@@ -24,6 +24,11 @@ Provides hooks and utility functions to create a custom and reusable autogenerat
         - [Arguments](#arguments-2)
         - [Return value](#return-value-2)
         - [Usage and example](#usage-and-example-1)
+      - [`makeLinksExternal`](#makelinksexternal)
+        - [Arguments](#arguments-3)
+        - [Return value](#return-value-3)
+        - [Usage and example](#usage-and-example-2)
+  - [Testing](#testing)
   - [License](#license)
   - [Author](#author)
 
@@ -33,6 +38,8 @@ Provides hooks and utility functions to create a custom and reusable autogenerat
 - Supports custom selectors for headings.
 - Supports custom dependencies to watch for changes.
 - Provides utility functions to add IDs to heading tags in HTML.
+- Provides utility functions to convert strings to dash case.
+- Provides utility functions to convert links in HTML to external links (open in new tab).
 - Lightweight and easy to use.
 - No dependencies.
 
@@ -121,68 +128,53 @@ export const App: React.FC = () => {
     <div className="flex">
       <div className="p-10 w-64">
         <div className="sticky top-8">
+          <div className="mb-2">
+            <img className="w-8 h-8" src="/public/favicon.png" alt="logo" />
+          </div>
           <TableOfContent />
         </div>
       </div>
-      <article className="flex-1">
-        <div className="container max-w-screen-xl">
-          <section>
-            <h1 id="first-heading">H1 heading</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-          <section>
-            <h2 id="second-heading">H2 heading</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-          <section>
-            <h3 id="third-heading">H3 heading</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-          <section>
-            <h4 id="fourth-heading">H4 heading</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-          <section>
-            <h5 id="fifth-heading">H5 heading</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-          <section>
-            <h6 id="sixth-heading">H6 heading</h6>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              vero accusamus alias cumque numquam atque eius ullam nobis at!
-              Necessitatibus, corporis earum? Quidem, corporis blanditiis
-              sapiente veritatis saepe debitis expedita!.
-            </p>
-          </section>
-        </div>
-      </article>
+      <div className="flex-1">
+        <Article />
+      </div>
     </div>
+  );
+};
+```
+
+</details>
+
+Below is an example of an article component that has headings.
+
+<details>
+<summary>Simple Article component with headings</summary>
+
+```jsx
+import React from "react";
+
+const Article = () => {
+  const headingTags = ["h1", "h2", "h3", "h4", "h5", "h6"];
+  const dummyText =
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum vero accusamus alias cumque numquam atque eius ullam nobis at! Necessitatibus, corporis earum? Quidem, corporis blanditiis sapiente veritatis saepe debitis expedita!.";
+  return (
+    <article>
+      <div className="container max-w-screen-xl">
+        {headingTags.map((tag, index) => {
+          const headingElement = createElement(
+            tag,
+            { key: index, id: `${tag}-heading` },
+            `${tag.toUpperCase()} heading`
+          );
+          return (
+            <section key={index}>
+              {headingElement}
+              {/* Returns something like this: <h1 id={`${tag}-heading`}>{tag.toUpperCase()} heading</h1> */}
+              <p>{dummyText}</p>
+            </section>
+          );
+        })}
+      </div>
+    </article>
   );
 };
 ```
@@ -277,6 +269,64 @@ console.log(newStr);
 
 // Output:
 // this-is-a-string
+```
+
+#### `makeLinksExternal`
+
+It's a function that converts all links in a string of HTML to external links.
+
+##### Arguments
+
+Accepts 1 argument of type `string` containing the HTML to convert links to external links.
+
+##### Return value
+
+A string of HTML with links converted to external links.
+
+##### Usage and example
+
+```js
+import { makeLinksExternal } from "react-table-of-content";
+
+const html = `
+  <a href="/about">About</a>
+  <a href="/contact">Contact</a>
+`;
+
+const newHtml = makeLinksExternal(html);
+
+console.log(newHtml);
+
+// Output:
+// <a href="/about" target="_blank" rel="noopener noreferrer">About</a>
+// <a href="/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+```
+
+## Testing
+
+Unit and integration tests are written using Jest and React Testing Library. To run the tests, use the command below:
+
+```bash
+npm run test
+```
+
+You can mock the package in your tests like so:
+
+```js
+jest.mock("react-table-of-content", () => ({
+  addIdToHeadingTags: jest.fn((content) => content),
+  useTableOfContent: jest.fn(() => ({
+    headingLinks: [
+      {
+        id: "id",
+        title: "title",
+        tagName: "h1",
+      },
+    ],
+    contentIsActive: jest.fn(() => true),
+  })),
+  makeLinksExternal: jest.fn((content) => content),
+}));
 ```
 
 ## License
