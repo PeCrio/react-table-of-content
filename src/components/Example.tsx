@@ -33,7 +33,7 @@ export const Example: React.FC = () => {
       <div className="p-10 w-64">
         <div className="sticky top-8">
           <div className="mb-2">
-            <img className="w-8 h-8" src="/public/favicon.png" alt="logo" />
+            <img className="w-8 h-8" src="/favicon.png" alt="logo" />
           </div>
           <TableOfContent />
         </div>

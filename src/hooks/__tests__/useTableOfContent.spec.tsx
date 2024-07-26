@@ -11,13 +11,20 @@ describe("useTableOfContent", () => {
   }));
 
   test("should return an empty array of heading links when no headings are present", () => {
-    const { result } = renderHook(() => useTableOfContent());
+    const { result } = renderHook(useTableOfContent);
     expect(result.current.headingLinks).toEqual([]);
   });
 
   test("should return false for contentIsActive when heading is not intersecting", () => {
-    const { result } = renderHook(() => useTableOfContent());
+    const { result } = renderHook(useTableOfContent);
     const headingId = "heading-2";
     expect(result.current.contentIsActive(headingId)).toBe(false);
+  });
+
+  test("should accept options", () => {
+    const { result } = renderHook(useTableOfContent, {
+      initialProps: { selectors: "h1, h2, h3", deps: "dependency" },
+    });
+    expect(result.current.headingLinks).toEqual([]);
   });
 });
